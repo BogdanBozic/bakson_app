@@ -17,6 +17,7 @@ func main() {
 	r.Run(":3000")
 }
 
+// HelloHandler : A simple test endpoint to get familiarized with gin and Go.
 func HelloHandler(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
@@ -24,6 +25,7 @@ func HelloHandler(c *gin.Context) {
 	})
 }
 
+// CurrentTime : Calculates current time on the server it is running on and returns it as string.
 func CurrentTime(c *gin.Context) {
 
 	time := time2.Now()

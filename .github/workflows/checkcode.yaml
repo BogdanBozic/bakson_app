@@ -3,9 +3,8 @@ name: CheckCode
 
 on:
   push:
-    branches:
-      - *
-      - !main
+    branches-ignore:
+      - main
 
 jobs:
 

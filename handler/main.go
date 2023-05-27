@@ -14,7 +14,10 @@ func main() {
 	r.GET("/hello", HelloHandler)
 	r.GET("/time", CurrentTime)
 
-	r.Run(":3000")
+	err := r.Run(":3000")
+	if err != nil {
+		fmt.Println("Something went wrong. Debug me, please.")
+	}
 }
 
 // HelloHandler : A simple test endpoint to get familiarized with gin and Go.

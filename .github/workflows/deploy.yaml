@@ -27,13 +27,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: debug
+        run: ls && pwd
+
       - name: Go Setup
         uses: actions/setup-go@v4
         with:
           go-version: '1.20.4'
 
       - name: Install Dependencies
-        run: go get .
+        run: go tidy
 
       - name: Unittests
         run: go test ./handler/

@@ -1,8 +1,11 @@
 ---
-name: Bakson
+name: CheckCode
 
 on:
-  - push
+  push:
+    branches:
+      - *
+      - !main
 
 jobs:
 
@@ -22,7 +25,6 @@ jobs:
 
   unitTests:
     runs-on: ubuntu-22.04
-    needs: lint
 
     steps:
       - uses: actions/checkout@v3

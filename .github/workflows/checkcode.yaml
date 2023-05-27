@@ -1,0 +1,40 @@
+---
+name: CheckCode
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+
+  lint:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+      - name: Lint Go code
+        uses: golangci/golangci-lint-action@v3
+
+  unitTests:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: debug
+        run: ls && pwd
+
+      - name: Go Setup
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20.4'
+
+      - name: Unittests
+        run: go test ./... -v -cover

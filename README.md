@@ -1,6 +1,6 @@
 ## bakson_app
 
-![CodeCheck](https://github.com/BogdanBozic/bakson_app/actions/workflows/checkcode.yaml)
+![CodeCheck](https://github.com/BogdanBozic/bakson_app/actions/workflows/checkcode.yaml/badge.svg)
 
 
 This simple GO gin webapp is a part of the interview assignment for Bakson ltd. It has two endpoints, /hello and /time that return a JSON response and date and time on the server as a string on a GET request without any authentication needed.

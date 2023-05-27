@@ -1,5 +1,5 @@
 ---
-name: BaksonDeploy
+name: Bakson
 
 on:
   - push
@@ -17,5 +17,21 @@ jobs:
         with:
           dockerfile: Dockerfile
 
-      - name: golangci-lint
+      - name: Lint Go code
         uses: golangci/golangci-lint-action@v3
+
+  unitTests:
+    runs-on: ubuntu-22.04
+    needs: lint
+
+    steps:
+      - name: Go Setup
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20.4'
+
+      - name: Install Dependencies
+        run: go get .
+
+      - name: Unittests
+        run: go test ./handler/

@@ -1,0 +1,35 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  buildDeploy:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
+        with:
+          aws-access-key-id: ${{ secrets.ECR_USER_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.ECR_USER_SECRET_KEY }}
+          aws-region: ${{ secrets.DEFAULT_AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.run_id }}
+        run: |
+          docker build -t ${{ secrets.ECR_URL }}:${{ github.run_id }} .
+          docker push ${{ secrets.ECR_URL }}:${{ github.run_id }}

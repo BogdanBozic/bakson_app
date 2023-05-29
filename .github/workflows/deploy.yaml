@@ -33,3 +33,18 @@ jobs:
         run: |
           docker build -t ${{ secrets.ECR_URL }}:${{ github.run_id }} .
           docker push ${{ secrets.ECR_URL }}:${{ github.run_id }}
+
+      - name: Bump version
+        run: |
+          wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          chmod a+x /usr/local/bin/yq
+          yq --version
+          mkdir infrastructure
+          cd infrastructure
+          git config --global user.email "you@example.com"
+          git config --global user.name "GitHub Actions"
+          git clone https://${{ secrets.DEPLOYMENT_TOKEN }}@github.com/${{ secrets.LOGIN_GITHUB }}/${{ secrets.PROJECT_NAME }}-infra.git .
+          yq -i '.image.tag = "${{ github.run_id }}"' ./helms/app-charts/bakson_app/values.yaml
+          git add .
+          git commit -m "Bump ${{ secrets.APPLICATION_NAME }} version to ${{ github.sha }}"
+          git push

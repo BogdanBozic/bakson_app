@@ -22,8 +22,8 @@ func TestHelloHandler(t *testing.T) {
 
 	router := gin.Default()
 
-	router.GET("/hello", HelloHandler)
-	req, err := http.NewRequest("GET", "/hello", nil)
+	router.GET("/", HelloHandler)
+	req, err := http.NewRequest("GET", "/", nil)
 	if err != nil {
 		t.Fatal(err)
 	}

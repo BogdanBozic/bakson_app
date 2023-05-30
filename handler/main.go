@@ -15,7 +15,7 @@ func main() {
 	r.GET("/time", CurrentTime)
 
 	err := r.Run(":80")
-	if err == nil {
+	if err != nil {
 		fmt.Println("Something went wrong. Debug me, please.")
 	}
 }

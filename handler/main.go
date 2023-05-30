@@ -14,7 +14,7 @@ func main() {
 	r.GET("/", HelloHandler)
 	r.GET("/time", CurrentTime)
 
-	err := r.Run(":80")
+	err := r.Run(":3000")
 	if err != nil {
 		fmt.Println("Something went wrong. Debug me, please.")
 		fmt.Println(err)

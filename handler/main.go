@@ -17,6 +17,8 @@ func main() {
 	err := r.Run(":80")
 	if err != nil {
 		fmt.Println("Something went wrong. Debug me, please.")
+		fmt.Println(err)
+		fmt.Println("Something went wrong. Debug me, please.")
 	}
 }
 

@@ -15,6 +15,6 @@ RUN go build .
 
 # Do not run as root.
 USER 1001
-EXPOSE 80
+EXPOSE 3000
 
 CMD ["./handler"]
